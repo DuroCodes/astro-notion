@@ -10,7 +10,7 @@ const [endpoint] = new URL(postUrl).pathname
 <a class="link" href={pathname + endpoint}>
   <div class="preview-wrapper">
     <div>
-      <p class="title" class={post.properties.color}>{`${post.properties.icon} ${post.properties.title}`}</p>
+      <p class="title">{`${post.properties.icon} ${post.properties.title}`}</p>
       <div class="tags">
         {post.properties.tags.map(({ name, color }) => <p class={color}>{name}</p>)}
       </div>
