@@ -1,0 +1,12 @@
+---
+let { block, is_first, is_last } = Astro.props;
+
+const listType = block.type === 'numbered_list_item' ? 'ol' : 'ul'
+
+---
+
+{
+  is_first ?
+  block[block.type].is_first && <Fragment set:html={`<${listType} class=notion-${block.type === 'to_do' ? 'todo-wrapper' : listType}>`} /> :
+  block[block.type].is_last && <Fragment set:html={`</${listType}>`} />
+}

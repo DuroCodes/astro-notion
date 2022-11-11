@@ -1,0 +1,68 @@
+---
+import Text from './Text.astro';
+import { Img } from 'astro-imagetools/components';
+import { downloadFile } from '../api/utils.js'
+const { as: NonText, block } = Astro.props;
+
+const contentType = block.type
+const fileType = block[contentType].type
+let filePath: string;
+
+if (fileType === 'file') {
+  const getFileName = (url: string) => {
+    const splitUrl = url.split('/').filter(item => item.length > 0)
+    return splitUrl[3] + '-' + splitUrl[4].split('?')[0]
+  }
+
+  const imageName = getFileName(block[contentType].file?.url)
+  const notionContentPath = '/assets/notion/contents/'
+  const targetDir = process.cwd() + '/public' + notionContentPath
+  filePath = notionContentPath + imageName
+
+  await downloadFile(block[contentType][fileType].url, targetDir, imageName)
+}
+
+if (fileType === 'external') {
+  const getCleanUrl = (url: string) => {
+    const cleanUrl = url.split('?')
+    if (contentType === 'video') {
+      const youtubeUrl = cleanUrl[0].replace(/\.be\//, 'be.com/embed/')
+      return youtubeUrl
+    }
+    return cleanUrl[0]
+  }
+  filePath = getCleanUrl(block[contentType][fileType].url)
+}
+
+let fileObj;
+if (NonText !== 'hr') {
+  fileObj = block[block.type];
+}
+
+---
+
+<NonText class:list={`notion-${block.type}${NonText !== 'hr' ? '-wrapper' : ''}`}>
+  {
+    fileObj &&
+    <Fragment>
+      {
+        contentType === 'image' ?
+        <Img
+        src={filePath}
+        alt={`${fileObj.caption[0]?.plain_text || 'An image from notion'}`}
+        breakpoints={{ maxWidth: 3840 }}
+        loading="lazy"
+        attributes={{
+          img: {
+            class: 'notion-image'
+          },
+        }}
+        /> :
+        fileType === 'external' ?
+        <iframe class='notion-iframe' src={filePath} title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe> :
+        <video class="notion-video" controls><source src={filePath} type={`video/${filePath.split('.').at(-1)}`}></video>
+      }
+      {fileObj.caption.length > 0 && <Text as={'figcaption'} {block} />}
+    </Fragment>
+  }
+</NonText>

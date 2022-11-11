@@ -1,0 +1,10 @@
+---
+import { getCorrectTagName } from '../api/utils.js'
+
+const { block } = Astro.props
+const blockType = block.type
+const tagName = getCorrectTagName(block, blockType);
+
+---
+
+<a href={block[blockType].url}>bookmark</a>

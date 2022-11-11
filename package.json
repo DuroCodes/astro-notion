@@ -1,0 +1,12 @@
+{
+  "type": "module",
+  "private": true,
+  "description": "The root directory for astro-notion package",
+  "scripts": {
+    "dev": "astro dev",
+    "start": "astro dev",
+    "build": "astro build",
+    "preview": "astro preview",
+    "astro": "astro"
+  }
+}

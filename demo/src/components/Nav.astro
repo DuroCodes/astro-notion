@@ -1,0 +1,144 @@
+---
+import { Icon } from 'astro-icon'
+
+---
+
+<nav>
+  <div class="title">
+    <a class='logo' href="/">
+      <svg
+        class='logo-svg'
+        xmlns="http://www.w3.org/2000/svg"
+        viewBox="0 0 367.6 367.6"
+        class="w-7 dark:fill-light-bg dark:brightness-90"
+        aria-hidden="true"
+        focusable="false"
+      >
+        <ellipse class="ec" cx="183.8" cy="183.8" rx="53.02" ry="183.8"
+        ></ellipse><ellipse
+          class="ec"
+          cx="183.8"
+          cy="183.8"
+          rx="53.02"
+          ry="183.8"
+          transform="translate(-76.13 183.8) rotate(-45)"></ellipse><ellipse
+          class="ec"
+          cx="183.8"
+          cy="183.8"
+          rx="183.8"
+          ry="53.02"></ellipse><ellipse
+          class="ec"
+          cx="183.8"
+          cy="183.8"
+          rx="183.8"
+          ry="53.02"
+          transform="translate(-76.13 183.8) rotate(-45)"></ellipse></svg
+      >
+      <span class='logo-text'>Notion Notes</span>
+    </a>
+  </div>
+  <div class='navigation'>
+    <a href="/notes">Notes</a>
+    <button class='btn'>
+      <a class="link" href="https://github.com/durocodes/astro-notion">source code</a>
+      <Icon
+        class='github-icon'
+        name="mdi:github"
+        aria-hidden="true"
+      />
+    </button>
+  </div>
+</nav>
+
+<style lang='scss'>
+  nav {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    align-items: center;
+    margin: 0 0 var(--size-8) 0;
+    padding: 0 0 var(--size-4) 0;
+    border-bottom: 1px solid rgba(0, 0, 0, 0.2);
+
+    .title {
+      font-size: var(--size-4);
+      
+      .logo {
+        display: flex;
+        gap: var(--size-2);
+
+        .logo-svg {
+          width: var(--size-5);
+        }
+
+        .logo-text {
+          font-weight: 500;
+        }
+        
+      }
+    }
+
+    .navigation {
+      display: flex;
+      flex-direction: row;
+      align-items: center;
+      gap: var(--size-6);
+
+      .btn {
+        display: flex;
+        flex-direction: row;
+        align-items: center;
+        gap: var(--size-2);
+        padding: var(--size-2) var(--size-4);
+        background-color: antiquewhite;
+        border-radius: var(--size-1);
+        transition: background-color 0.3s linear, box-shadow 0.3s linear;
+
+        &:hover {
+          background-color: #f5f5f5;
+          outline: 1px solid rgba(0, 0, 0, 0.2);
+          box-shadow: var(--shadow-btn);
+          a {
+            color: #b8860b;
+          }
+        }
+
+        .github-icon {
+          width: var(--size-4);
+        }
+
+      }
+    }
+
+  }
+
+    @media (max-width: 768px) {
+      nav {
+        margin: 0 0 var(--size-4) 0; 
+        .navigation {
+          gap: var(--size-3);
+          .link {
+            display: none;
+          }
+          .btn {
+            background-color: inherit;
+            outline: 1px solid rgba(0, 0, 0, 0.2);
+            border-radius: 4px;
+            margin-left: var(--size-2);
+          }
+        }
+      }
+    }
+
+    @media (max-width: 425px) {
+      nav {
+        .logo {
+          .logo-text {
+            display: none;
+          }
+        }
+      }
+    }
+
+
+</style>

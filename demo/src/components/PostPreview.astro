@@ -1,0 +1,57 @@
+---
+const { postUrl, post, blocks } = Astro.props;
+
+const pathname = Astro.canonicalURL.pathname;
+const [endpoint] = new URL(postUrl).pathname
+  .split('/')
+  .filter((str) => str.length > 0);
+---
+
+<a class="link" href={pathname + endpoint}>
+  <div class="preview-wrapper">
+    <p class="title">{`${post.properties.icon} ${post.properties.title}`}</p>
+    <p class="tags">{post.properties.tags.map(({ name, color }) => <p class={color}>{name}</p>)}</p>
+    <p class="date">{post.date.created}</p>
+  </div>
+</a>
+
+<style lang="scss">
+  .preview-wrapper {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: space-between;
+    padding: var(--size-6) 0;
+    border-top: 1px solid rgba(0, 0, 0, 0.2);
+
+    .date {
+      min-width: 10ch;
+    }
+
+    .title {
+      width: 30ch;
+    }
+
+    .yellow {
+      background: rgb(250, 235, 215);
+      display: flex;
+      flex-direction: row;
+      align-items: center;
+      gap: var(--size-2);
+      padding: var(--size-2) var(--size-4);
+      border-radius: var(--size-1);
+      transition: background-color 0.3s linear, box-shadow 0.3s linear;
+    }
+
+    .red {
+      background: pink;
+      display: flex;
+      flex-direction: row;
+      align-items: center;
+      gap: var(--size-2);
+      padding: var(--size-2) var(--size-4);
+      border-radius: var(--size-1);
+      transition: background-color 0.3s linear, box-shadow 0.3s linear;
+    }
+  }
+</style>
