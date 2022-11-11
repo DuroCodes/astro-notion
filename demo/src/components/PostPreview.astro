@@ -9,8 +9,12 @@ const [endpoint] = new URL(postUrl).pathname
 
 <a class="link" href={pathname + endpoint}>
   <div class="preview-wrapper">
-    <p class="title">{`${post.properties.icon} ${post.properties.title}`}</p>
-    <p class="tags">{post.properties.tags.map(({ name, color }) => <p class={color}>{name}</p>)}</p>
+    <div>
+      <p class="title" class={post.properties.color}>{`${post.properties.icon} ${post.properties.title}`}</p>
+      <div class="tags">
+        {post.properties.tags.map(({ name, color }) => <p class={color}>{name}</p>)}
+      </div>
+    </div>
     <p class="date">{post.date.created}</p>
   </div>
 </a>
@@ -29,7 +33,11 @@ const [endpoint] = new URL(postUrl).pathname
     }
 
     .title {
-      width: 30ch;
+      min-width: 10ch;
+    }
+
+    .tags {
+      max-width: 15ch
     }
 
     .yellow {

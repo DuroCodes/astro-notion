@@ -68,6 +68,7 @@ type pageMetaData = {
     title: number;
     slug: string;
     tags: { name: string, color: string; }[];
+    color: string;
     icon: string;
   };
 };
@@ -79,6 +80,7 @@ function cleanTableData(data): pageMetaData[] | [] {
 
   const cleanedData = data.map((page): pageMetaData => {
     const { id, created_time, last_edited_time, properties, url } = page;
+    const tags = page.properties.tags.multi_select.map(({ name, color }) => ({ name, color }));
 
     return {
       id,
@@ -87,7 +89,8 @@ function cleanTableData(data): pageMetaData[] | [] {
       properties: {
         title: getPlainText(properties?.title),
         slug: getPlainText(properties?.slug),
-        tags: page.properties.tags.multi_select.map(({ name, color }) => ({ name, color })),
+        tags,
+        color: tags.map(({ color }) => color)[0],
         icon: page.icon?.emoji,
       },
     };
